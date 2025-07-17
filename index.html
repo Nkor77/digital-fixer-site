@@ -93,12 +93,25 @@
       padding: 1.5rem;
       font-size: 0.9rem;
     }
-    .testimonials {
-      background: #f0f8ff;
-      border-left: 4px solid #0d6efd;
-      padding: 1rem 2rem;
-      margin-bottom: 1rem;
+    .testimonial {
       font-style: italic;
+      color: #555;
+      border-left: 4px solid #0d6efd;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+    .paypal-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #0070ba;
+      color: white;
+      font-weight: 600;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .paypal-btn:hover {
+      background-color: #005c99;
     }
   </style>
 </head>
@@ -132,10 +145,9 @@
     <a class="button" href="#contact">Claim Your Free Consultation</a>
   </section>
 
-  <section class="testimonials">
-    <h2>What Our Clients Say</h2>
-    <p>“Digital Fixer completely transformed our online presence. We saw more foot traffic and calls within the first month.” – Maria S., Salon Owner</p>
-    <p>“They set up everything from our website to Google reviews. Super smooth process!” – Jamal T., Auto Shop Manager</p>
+  <section class="testimonial">
+    <h2>Why People Trust Us</h2>
+    <p>"Digital Fixer helped my local shop show up on Google and got me more walk-in customers in just one month. Super professional and easy to work with." — Happy Client</p>
   </section>
 
   <section class="contact" id="contact">
@@ -154,8 +166,12 @@
       <button type="submit">Send Message</button>
     </form>
     <p>Email us directly at <a href="mailto:digitalfixer7@gmail.com">digitalfixer7@gmail.com</a></p>
-    <p><strong>Want to get started fast?</strong></p>
-    <a class="button" href="https://www.paypal.com/paypalme/digitalfixer" target="_blank">Pay Setup Fee</a>
+  </section>
+
+  <section class="payment">
+    <h2>Ready to Pay?</h2>
+    <p>You can pay securely using PayPal:</p>
+    <a class="paypal-btn" href="https://paypal.me/NikitaKornev872" target="_blank">Pay via PayPal</a>
   </section>
 
   <footer>
