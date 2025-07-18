@@ -95,13 +95,26 @@
     }
     .image-section {
       text-align: center;
+      padding: 2rem;
+      background-image: url('premium_photo-1681400745727-c69f8e47f524.avif');
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      color: white;
     }
-    .image-section img {
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .image-gallery img {
+      width: 250px;
       max-width: 100%;
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      margin: 1rem 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
@@ -139,10 +152,11 @@
   <section class="image-section">
     <h2>Why Choose Digital Fixer?</h2>
     <p>Real solutions. Real growth. Here's a peek at our clean, modern style:</p>
-    <img src="premium_photo-1681400745727-c69f8e47f524.avif" alt="Sample Design Work 1" />
-    <img src="premium_photo-1683872921964-25348002a392.avif" alt="Sample Design Work 2" />
-    <img src="premium_photo-1684225764999-3597a8da10ab.avif" alt="Sample Design Work 3" />
-    <img src="premium_photo-1683494994773-1e4500d7adb3.avif" alt="Sample Design Work 4" />
+    <div class="image-gallery">
+      <img src="premium_photo-1683872921964-25348002a392.avif" alt="Sample Design Work 2" />
+      <img src="premium_photo-1684225764999-3597a8da10ab.avif" alt="Sample Design Work 3" />
+      <img src="premium_photo-1683494994773-1e4500d7adb3.avif" alt="Sample Design Work 4" />
+    </div>
   </section>
 
   <section class="contact" id="contact">
