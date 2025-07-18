@@ -3,46 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Digital Fixer helps local businesses build modern websites, appear on Google, and grow online." />
-  <meta property="og:title" content="Digital Fixer for Small Businesses" />
-  <meta property="og:description" content="We help local businesses grow their online presence with websites, SEO, logos, and art design." />
-  <meta property="og:image" content="https://yourdomain.com/preview.jpg" />
-  <meta property="og:url" content="https://yourdomain.com" />
-  <meta name="twitter:card" content="summary_large_image" />
   <title>Digital Fixer for Small Businesses</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" media="all">
   <style>
-    body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: #f6f9fc; color: #333; }
-    header { background: linear-gradient(90deg, #0d6efd, #0a58ca); color: white; padding: 3rem 2rem; text-align: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-    header h1 { margin: 0; font-size: 3rem; font-weight: 700; }
-    header p { font-size: 1.25rem; margin-top: 0.5rem; }
-    .logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
-    section { padding: 2rem; max-width: 900px; margin: auto; background: white; margin-bottom: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-    h2 { color: #0d6efd; font-size: 2rem; margin-bottom: 1rem; }
-    ul { padding-left: 1.5rem; }
-    li { margin-bottom: 0.75rem; }
-    .button { display: inline-block; background: #198754; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; margin-top: 1rem; font-weight: 600; transition: background 0.3s; }
-    .button:hover { background: #157347; }
-    form input, form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
-    form button { background: #0d6efd; color: white; padding: 0.75rem 2rem; border: none; border-radius: 5px; font-size: 1rem; font-weight: 600; cursor: pointer; }
-    form button:hover { background: #0a58ca; }
-    footer { background: #212529; color: white; text-align: center; padding: 1.5rem; font-size: 0.9rem; }
-    .testimonial { font-style: italic; color: #555; border-left: 4px solid #0d6efd; padding-left: 1rem; margin-bottom: 1rem; }
-    .paypal-btn { display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: #0070ba; color: white; font-weight: 600; border-radius: 5px; text-decoration: none; }
-    .paypal-btn:hover { background-color: #005c99; }
-    .faq h3 { margin-top: 1rem; color: #222; }
-    .faq p { margin: 0.5rem 0 1.5rem; }
-    .social-icons img { width: 32px; margin-right: 10px; }
-    .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .gallery img { width: 100%; max-width: 280px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f6f9fc;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #0d6efd, #0a58ca);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    header p {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #0d6efd;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.75rem;
+    }
+    .button {
+      display: inline-block;
+      background: #198754;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 1rem;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: #157347;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    form button {
+      background: #0d6efd;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #0a58ca;
+    }
+    footer {
+      background: #212529;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .image-section {
+      text-align: center;
+    }
+    .image-section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo"><img src="https://yourdomain.com/logo.png" alt="Digital Fixer Logo" style="height: 50px;"></div>
     <h1>Digital Fixer</h1>
     <p>We Make Local Businesses Look Modern, Trustworthy, and Easy to Find Online</p>
   </header>
@@ -58,17 +122,8 @@
       <li><strong>Website Design:</strong> Modern, mobile-ready sites built with Wix or Webflow</li>
       <li><strong>Google Business Optimization:</strong> Appear on maps, get reviews, boost visibility</li>
       <li><strong>Social Media Setup:</strong> Facebook business pages, reviews, and basic SEO to rank on Google</li>
-      <li><strong>Logo Design:</strong> Clean and modern logos to help your brand stand out</li>
-      <li><strong>Art & Poster Design:</strong> Custom posters, banners, and visual art for promotions or branding</li>
-      <li><strong>SEO Optimization:</strong> Get found on Google and increase your website traffic</li>
+      <li><strong>Art & Branding:</strong> Logos, flyers, posters, and branded graphics for your business</li>
     </ul>
-  </section>
-
-  <section class="gallery">
-    <h2>Sample Work</h2>
-    <img src="https://source.unsplash.com/featured/?webdesign" alt="Web Design Sample">
-    <img src="https://source.unsplash.com/featured/?seo" alt="SEO Optimization">
-    <img src="https://source.unsplash.com/featured/?branding" alt="Branding Design">
   </section>
 
   <section class="pricing">
@@ -81,21 +136,13 @@
     <a class="button" href="#contact">Claim Your Free Consultation</a>
   </section>
 
-  <section class="testimonial">
-    <h2>Why People Trust Us</h2>
-    <p>"Digital Fixer helped my local shop show up on Google and got me more walk-in customers in just one month. Super professional and easy to work with." — Happy Client</p>
-    <p>"We had no idea what SEO even meant. Now we’re ranking on Google and getting new leads every week." — Local Bakery</p>
-    <p>"They gave us a clean website and a Facebook presence. Worth every dollar." — HVAC Company Owner</p>
-  </section>
-
-  <section class="faq">
-    <h2>FAQs</h2>
-    <h3>How long does it take?</h3>
-    <p>Most clients see results in 2–4 weeks depending on the package.</p>
-    <h3>What platforms do you use?</h3>
-    <p>We work with Wix, Webflow, Google Business, and Facebook Pages.</p>
-    <h3>Is this a one-time payment?</h3>
-    <p>Initial setup is one-time. Ongoing support is optional at $99/month.</p>
+  <section class="image-section">
+    <h2>Why Choose Digital Fixer?</h2>
+    <p>Real solutions. Real growth. Here's a peek at our clean, modern style:</p>
+    <img src="premium_photo-1681400745727-c69f8e47f524.avif" alt="Sample Design Work 1" />
+    <img src="premium_photo-1683872921964-25348002a392.avif" alt="Sample Design Work 2" />
+    <img src="premium_photo-1684225764999-3597a8da10ab.avif" alt="Sample Design Work 3" />
+    <img src="premium_photo-1683494994773-1e4500d7adb3.avif" alt="Sample Design Work 4" />
   </section>
 
   <section class="contact" id="contact">
@@ -114,20 +161,6 @@
       <button type="submit">Send Message</button>
     </form>
     <p>Email us directly at <a href="mailto:digitalfixer7@gmail.com">digitalfixer7@gmail.com</a></p>
-  </section>
-
-  <section class="payment">
-    <h2>Ready to Pay?</h2>
-    <p>You can pay securely using PayPal:</p>
-    <a class="paypal-btn" href="https://paypal.me/NikitaKornev872" target="_blank">Pay via PayPal</a>
-  </section>
-
-  <section class="social-icons" style="text-align: center; padding: 1rem">
-    <h2>Connect With Us</h2>
-    <a href="https://www.google.com/maps" target="_blank"><img src="https://img.icons8.com/color/48/000000/google-maps-new.png" alt="Google Maps"></a>
-    <a href="https://www.facebook.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"></a>
-    <a href="https://www.webflow.com" target="_blank"><img src="https://img.icons8.com/fluency/48/webflow.png" alt="Webflow"></a>
-    <a href="https://www.wix.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/0d6efd/wix.png" alt="Wix"></a>
   </section>
 
   <footer>
