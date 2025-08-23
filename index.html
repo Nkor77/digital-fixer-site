@@ -1,1090 +1,1090 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Fixer - Modernize Your Business Online</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-2px);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: #fff;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .mobile-menu span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #ff6b6b;
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.4s both;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
-        }
-
-        /* Services Section */
-        .services {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .section-title p {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .service-card:hover::before {
-            left: 100%;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Workflow Section */
-        .workflow {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .workflow-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .workflow-step {
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 1rem;
-        }
-
-        .workflow-step h3 {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .workflow-step p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .pricing-card {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card.featured {
-            border-color: #667eea;
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
-        }
-
-        .pricing-card.featured::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: 25px;
-            right: -40px;
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 45px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            transform: rotate(45deg);
-            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-5px);
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .plan-price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .plan-features li {
-            padding: 0.5rem 0;
-            color: #666;
-        }
-
-        .plan-features li i {
-            color: #28a745;
-            margin-right: 10px;
-        }
-
-        .plan-button {
-            background: #667eea;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 1rem;
-        }
-
-        .plan-button:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .testimonial {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .testimonial::before {
-            content: '"';
-            font-size: 4rem;
-            color: #667eea;
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            opacity: 0.3;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        .testimonial-author {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .testimonial-business {
-            color: #667eea;
-            font-size: 0.9rem;
-        }
-
-        /* Contact Form */
-        .contact {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .submit-button {
-            background: #667eea;
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .submit-button:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .paypal-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .paypal-btn {
-            background: #0070ba;
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            min-width: 180px;
-            justify-content: center;
-        }
-
-        .paypal-btn:hover {
-            background: #005ea6;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 112, 186, 0.3);
-        }
-
-        /* Download Section */
-        .download-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 60px 0;
-            text-align: center;
-            color: white;
-        }
-
-        .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 12px 25px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 3rem 0 1rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            line-height: 1.8;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .services-grid,
-            .pricing-grid,
-            .testimonials-grid,
-            .workflow-steps {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .pricing-card.featured:hover {
-                transform: translateY(-5px);
-            }
-
-            .form-container {
-                margin: 0 1rem;
-                padding: 2rem;
-            }
-
-            .download-buttons,
-            .paypal-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .paypal-btn {
-                width: 100%;
-                max-width: 280px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U.S. States & Capitals Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style id="app-style">
+    .theme-playful {
+      --primary-color: #FF9E44;
+      --secondary-color: #5B9BD5;
+      --accent-color: #FF5252;
+      --background-color: #FFFFE0;
+      --text-color: #333333;
+      --button-color: #6ECB63;
+      --button-hover: #4CAF50;
+      --correct-color: #66BB6A;
+      --incorrect-color: #FF5252;
+      --panel-bg: #FFF9C4;
+      --toggle-bg: #FFB74D;
+      --toggle-active: #FF9800;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    .theme-modern {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --accent-color: #e74c3c;
+      --background-color: #f5f5f5;
+      --text-color: #2c3e50;
+      --button-color: #3498db;
+      --button-hover: #2980b9;
+      --correct-color: #2ecc71;
+      --incorrect-color: #e74c3c;
+      --panel-bg: #ffffff;
+      --toggle-bg: #bdc3c7;
+      --toggle-active: #3498db;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .theme-minimalist {
+      --primary-color: #555555;
+      --secondary-color: #333333;
+      --accent-color: #777777;
+      --background-color: #ffffff;
+      --text-color: #333333;
+      --button-color: #dddddd;
+      --button-hover: #cccccc;
+      --correct-color: #4caf50;
+      --incorrect-color: #f44336;
+      --panel-bg: #f9f9f9;
+      --toggle-bg: #e0e0e0;
+      --toggle-active: #bbbbbb;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--toggle-bg);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .toggle-slider {
+      background-color: var(--toggle-active);
+    }
+
+    input:checked + .toggle-slider:before {
+      transform: translateX(30px);
+    }
+
+    .checkbox-custom {
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-custom input[type="checkbox"] {
+      accent-color: var(--primary-color);
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-mode {
+      background-color: var(--button-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .btn-mode:hover {
+      background-color: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-mode.active {
+      background-color: var(--secondary-color);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .state-path {
+      fill: #DDDDDD;
+      stroke: white;
+      stroke-width: 1;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .state-path.enabled {
+      fill: var(--secondary-color);
+      opacity: 0.7;
+    }
+
+    .state-path.enabled:hover {
+      opacity: 0.9;
+      stroke-width: 2;
+    }
+
+    .capital-marker {
+      fill: var(--accent-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .capital-marker.enabled {
+      opacity: 1;
+    }
+
+    .capital-marker.enabled:hover {
+      transform: scale(1.5);
+    }
+
+    .capital-marker.disabled {
+      opacity: 0.2;
+    }
+
+    .choice-btn {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin: 8px;
+      min-width: 200px;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .choice-btn.correct {
+      background-color: var(--correct-color);
+      animation: pulse 0.5s;
+    }
+
+    .choice-btn.incorrect {
+      background-color: var(--incorrect-color);
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .settings-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--secondary-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .settings-button:hover {
+      transform: rotate(30deg);
+    }
+
+    .settings-panel {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: none;
+    }
+
+    .theme-option {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .theme-option:hover {
+      background-color: #f0f0f0;
+    }
+
+    .collapse-button {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    .states-list {
+      max-height: 400px;
+      overflow-y: auto;
+      transition: max-height 0.3s ease;
+    }
+
+    .states-list.collapsed {
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    /* Custom scrollbar */
+    .states-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .states-list::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .states-list::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 10px;
+    }
+
+    .states-list::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
+    }
+
+    /* Map container */
+    .map-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #us-map {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Loader */
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Try again tooltip */
+    .tooltip {
+      position: absolute;
+      background-color: var(--incorrect-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 100;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        max-width: 100%;
+      }
+      
+      .quiz-container {
+        width: 100%;
+      }
+      
+      .choice-btn {
+        min-width: 100%;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="fas fa-tools"></i>
-                Digital Fixer
+<body class="theme-playful">
+  <div class="container mx-auto px-4 py-6">
+    <h1 class="text-4xl font-bold text-center mb-6">U.S. States & Capitals Quiz</h1>
+    
+    <div class="main-container flex flex-wrap">
+      <!-- Left sidebar -->
+      <div class="sidebar w-full md:w-1/3 p-4">
+        <div class="bg-white rounded-lg shadow-lg p-4" style="background-color: var(--panel-bg)">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Quiz Settings</h2>
+            <div class="flex items-center">
+              <span class="mr-2">States</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="quiz-type-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="ml-2">Capitals</span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#testimonials">Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
+          </div>
+          
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Select States</h3>
+            <div class="flex">
+              <button id="select-all" class="text-sm mr-2 px-2 py-1 rounded" style="background-color: var(--button-color); color: white;">Select All</button>
+              <button id="deselect-all" class="text-sm px-2 py-1 rounded" style="background-color: var(--button-color); color: white;">Deselect All</button>
             </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Modernize Your Business Online</h1>
-                <p>Professional websites, Google Business setup, and digital branding - all handled 100% online with no meetings required</p>
-                <a href="#contact" class="cta-button">Get Started Today</a>
-            </div>
+          </div>
+          
+          <div class="flex justify-between items-center mb-2 cursor-pointer" id="collapse-toggle">
+            <span class="font-semibold">States List</span>
+            <i class="fas fa-chevron-down collapse-button"></i>
+          </div>
+          
+          <div class="states-list" id="states-list">
+            <!-- States checkboxes will be dynamically populated -->
+            <div class="loader" id="states-loader"></div>
+          </div>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>What We Do</h2>
-                <p>Complete digital solutions for small businesses, delivered entirely online</p>
+      </div>
+      
+      <!-- Right quiz area -->
+      <div class="quiz-container w-full md:w-2/3 p-4">
+        <div class="bg-white rounded-lg shadow-lg p-4 h-full" style="background-color: var(--panel-bg)">
+          <!-- Quiz mode selection -->
+          <div class="flex justify-center mb-4 gap-4">
+            <button id="map-mode" class="btn-mode active">
+              <i class="fas fa-map-marked-alt mr-2"></i> Map Click
+            </button>
+            <button id="multiple-choice-mode" class="btn-mode">
+              <i class="fas fa-list-ol mr-2"></i> Multiple Choice
+            </button>
+          </div>
+          
+          <!-- Score display -->
+          <div class="flex justify-center mb-4 text-lg font-bold">
+            <span>Attempts: <span id="attempts-counter">0</span> | </span>
+            <span class="ml-2">Correct: <span id="correct-counter">0</span>/<span id="total-counter">0</span></span>
+            <button id="reset-quiz" class="ml-4 px-3 py-1 rounded text-sm" style="background-color: var(--accent-color); color: white;">
+              <i class="fas fa-redo-alt mr-1"></i> Reset
+            </button>
+          </div>
+          
+          <!-- Map quiz mode -->
+          <div id="map-quiz-container" class="h-[500px] flex items-center justify-center">
+            <div class="map-container">
+              <div id="us-map-container" class="w-full h-full relative">
+                <div class="loader" id="map-loader"></div>
+                <svg id="us-map" preserveAspectRatio="xMidYMid meet" viewBox="0 0 959 593"></svg>
+                <div class="tooltip" id="map-tooltip">Incorrect. Try again!</div>
+              </div>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Website Creation</h3>
-                    <p>Professional, mobile-optimized websites built on Wix or Webflow. Clean, modern designs that convert visitors into customers.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Google Business Profile</h3>
-                    <p>Complete setup and optimization of your Google Business Profile for maximum local visibility and SEO performance.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fab fa-facebook"></i>
-                    </div>
-                    <h3>Facebook Business Page</h3>
-                    <p>Professional Facebook Business page setup with review integration and social media optimization for your brand.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Logo & Branding Design</h3>
-                    <p>Custom logo design, promotional posters, and complete branding packages that make your business stand out.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3>Video Editing</h3>
-                    <p>Professional video editing for promotional content, social media videos, and marketing materials to boost your online presence.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-share-alt"></i>
-                    </div>
-                    <h3>Social Media Management</h3>
-                    <p>Complete social media setup and management across platforms. Content creation, posting schedules, and engagement strategies.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-pen-fancy"></i>
-                    </div>
-                    <h3>Copywriting</h3>
-                    <p>Compelling website copy, marketing materials, and content that converts visitors into customers with persuasive messaging.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Custom Website Development</h3>
-                    <p>Advanced custom website development with unique features, e-commerce integration, and complex functionality beyond templates.</p>
-                </div>
+          </div>
+          
+          <!-- Multiple choice quiz mode (initially hidden) -->
+          <div id="multiple-choice-container" class="flex flex-col items-center h-[500px] hidden">
+            <div class="text-2xl font-bold mb-6 text-center" id="quiz-prompt">Loading question...</div>
+            <div id="choices-container" class="flex flex-wrap justify-center">
+              <!-- Choices will be dynamically added here -->
             </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Workflow Section -->
-    <section class="workflow">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our 100% Online Process</h2>
-                <p>No meetings, no phone calls, no hassle - just professional results delivered through email</p>
-            </div>
-            <div class="workflow-steps">
-                <div class="workflow-step">
-                    <div class="step-number">1</div>
-                    <h3>Submit Your Request</h3>
-                    <p>Fill out our contact form with your business details and requirements. We'll send you a detailed questionnaire via email.</p>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">2</div>
-                    <h3>Email Consultation</h3>
-                    <p>We'll discuss your needs entirely through email exchanges. Send us your branding materials, photos, and content.</p>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">3</div>
-                    <h3>Design & Development</h3>
-                    <p>Our team creates your digital assets. We'll send progress updates and drafts for your review via email.</p>
-                </div>
-                <div class="workflow-step">
-                    <div class="step-number">4</div>
-                    <h3>Review & Launch</h3>
-                    <p>Final review through email, implement any changes, then launch your new digital presence. All files delivered digitally.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the package that fits your business needs</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="plan-name">Basic</div>
-                    <div class="plan-price">$250</div>
-                    <ul class="plan-features">
-                        <li><i class="fas fa-check"></i> 5-page professional website</li>
-                        <li><i class="fas fa-check"></i> Mobile optimization</li>
-                        <li><i class="fas fa-check"></i> Basic Google Business setup</li>
-                        <li><i class="fas fa-check"></i> Contact form integration</li>
-                        <li><i class="fas fa-check"></i> 30 days email support</li>
-                    </ul>
-                    <button class="plan-button" onclick="selectPlan('basic')">Choose Basic</button>
-                </div>
-                <div class="pricing-card featured">
-                    <div class="plan-name">Standard</div>
-                    <div class="plan-price">$500</div>
-                    <ul class="plan-features">
-                        <li><i class="fas fa-check"></i> 10-page professional website</li>
-                        <li><i class="fas fa-check"></i> Advanced Google Business optimization</li>
-                        <li><i class="fas fa-check"></i> Facebook Business page setup</li>
-                        <li><i class="fas fa-check"></i> Custom logo design</li>
-                        <li><i class="fas fa-check"></i> SEO optimization</li>
-                        <li><i class="fas fa-check"></i> 60 days email support</li>
-                    </ul>
-                    <button class="plan-button" onclick="selectPlan('standard')">Choose Standard</button>
-                </div>
-                <div class="pricing-card">
-                    <div class="plan-name">Premium</div>
-                    <div class="plan-price">$950</div>
-                    <ul class="plan-features">
-                        <li><i class="fas fa-check"></i> Unlimited pages website</li>
-                        <li><i class="fas fa-check"></i> Complete Google Business optimization</li>
-                        <li><i class="fas fa-check"></i> Facebook + review integration</li>
-                        <li><i class="fas fa-check"></i> Full branding package</li>
-                        <li><i class="fas fa-check"></i> Custom poster designs</li>
-                        <li><i class="fas fa-check"></i> Advanced SEO & analytics</li>
-                        <li><i class="fas fa-check"></i> 90 days email support</li>
-                    </ul>
-                    <button class="plan-button" onclick="selectPlan('premium')">Choose Premium</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>What Our Clients Say</h2>
-                <p>Real reviews from satisfied small business owners</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "Digital Fixer transformed our online presence completely. The entire process was smooth, professional, and done entirely through email. Our new website has brought in 3x more customers!"
-                    </div>
-                    <div class="testimonial-author">Sarah Martinez</div>
-                    <div class="testimonial-business">Martinez Family Restaurant</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "I was amazed how they handled everything online. No meetings, no phone calls, just results. Our Google Business profile now shows up first in local searches. Highly recommend!"
-                    </div>
-                    <div class="testimonial-author">Mike Thompson</div>
-                    <div class="testimonial-business">Thompson Auto Repair</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "The logo and branding package exceeded our expectations. The communication through email was clear and efficient. Our business looks so much more professional now."
-                    </div>
-                    <div class="testimonial-author">Lisa Chen</div>
-                    <div class="testimonial-business">Chen's Beauty Salon</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get Started Today</h2>
-                <p>Ready to modernize your business? Fill out the form below and we'll get back to you within 24 hours</p>
-            </div>
-            <div class="form-container">
-                <form action="https://formspree.io/f/xgvzaqyp" method="POST">
-    <div class="form-group">
-        <label for="contact-name">Your Name *</label>
-        <input type="text" id="contact-name" name="contact-name" required>
+      </div>
     </div>
-
-    <div class="form-group">
-        <label for="email">Email Address *</label>
-        <input type="email" id="email" name="_replyto" required>
+    
+    <!-- Settings button -->
+    <div class="settings-button" id="settings-button">
+      <i class="fas fa-cog fa-lg"></i>
     </div>
-
-    <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone">
+    
+    <!-- Settings panel -->
+    <div class="settings-panel" id="settings-panel">
+      <h3 class="text-lg font-bold mb-3">Theme Settings</h3>
+      <div class="theme-option" data-theme="playful">
+        <i class="fas fa-paint-brush mr-2"></i> Playful Cartoonish
+      </div>
+      <div class="theme-option" data-theme="modern">
+        <i class="fas fa-paint-brush mr-2"></i> Modern Flat
+      </div>
+      <div class="theme-option" data-theme="minimalist">
+        <i class="fas fa-paint-brush mr-2"></i> Minimalist
+      </div>
     </div>
+  </div>
 
-    <div class="form-group">
-        <label for="package">Interested Package *</label>
-        <select id="package" name="package" required>
-            <option value="">Select a package</option>
-            <option value="basic">Basic - $250</option>
-            <option value="standard">Standard - $500</option>
-            <option value="premium">Premium - $950</option>
-            <option value="custom">Custom Quote</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="current-website">Current Website (if any)</label>
-        <input type="url" id="current-website" name="current-website" placeholder="https://yourwebsite.com">
-    </div>
-
-    <div class="form-group">
-        <label for="business-description">Tell us about your business *</label>
-        <textarea id="business-description" name="business-description" rows="4" placeholder="Describe your business, target audience, and what you hope to achieve..." required></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="timeline">Preferred Timeline</label>
-        <select id="timeline" name="timeline">
-            <option value="">Select timeline</option>
-            <option value="asap">ASAP (Rush order)</option>
-            <option value="1-2weeks">1-2 weeks</option>
-            <option value="2-4weeks">2-4 weeks</option>
-            <option value="flexible">Flexible</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="additional-info">Additional Requirements</label>
-        <textarea id="additional-info" name="additional-info" rows="3" placeholder="Any specific features, design preferences, or special requests..."></textarea>
-    </div>
-
-    <input type="hidden" name="_subject" value="New Digital Fixer Inquiry">
-    <input type="hidden" name="_next" value="thank-you.html">
-
-    <button type="submit" class="submit-button">
-        <i class="fas fa-paper-plane"></i> Send My Request
-    </button>
-</form>
-
-                
-                <div style="margin-top: 2rem; text-align: center; color: #666;">
-                    <p><i class="fas fa-envelope"></i> Or email us directly: <strong>digitalfixer7@gmail.com</strong></p>
-                    <p><i class="fas fa-clock"></i> We respond to all inquiries within 24 hours</p>
-                </div>
-            </div>
-            
-            <!-- PayPal Payment Integration -->
-            <div style="margin-top: 3rem; text-align: center;">
-                <h3 style="color: #333; margin-bottom: 1rem;">Secure Payment Options</h3>
-                <p style="color: #666; margin-bottom: 2rem;">Pay securely with PayPal - no account required</p>
-                <div class="paypal-buttons">
-                    <a href="#" class="paypal-btn" onclick="payWithPayPal('basic')">
-                        <i class="fab fa-paypal"></i> Pay $250 (Basic)
-                    </a>
-                    <a href="#" class="paypal-btn" onclick="payWithPayPal('standard')">
-                        <i class="fab fa-paypal"></i> Pay $500 (Standard)
-                    </a>
-                    <a href="#" class="paypal-btn" onclick="payWithPayPal('premium')">
-                        <i class="fab fa-paypal"></i> Pay $950 (Premium)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section -->
-    <section class="download-section">
-        <div class="container">
-            <h2>Free Social Media Graphics</h2>
-            <p>Download our promotional graphics to share your new digital presence</p>
-            <div class="download-buttons">
-                <a href="#" class="download-btn">
-                    <i class="fab fa-instagram"></i> Instagram Graphics
-                </a>
-                <a href="#" class="download-btn">
-                    <i class="fab fa-facebook"></i> Facebook Graphics
-                </a>
-                <a href="#" class="download-btn">
-                    <i class="fas fa-share-alt"></i> Social Media Kit
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Digital Fixer</h3>
-                    <p>Modernizing small businesses online with professional websites, Google Business optimization, and digital branding - all handled 100% online.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Services</h3>
-                    <p><a href="#services">Website Creation</a></p>
-                    <p><a href="#services">Google Business Profile</a></p>
-                    <p><a href="#services">Facebook Business Pages</a></p>
-                    <p><a href="#services">Logo & Branding Design</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-envelope"></i> digitalfixer7@gmail.com</p>
-                    <p><i class="fas fa-clock"></i> 24-hour email response</p>
-                    <p><i class="fas fa-globe"></i> 100% Online Service</p>
-                </div>
-            </div>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <p>&copy; 2025 Digital Fixer. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        function selectPlan(plan) {
-            document.getElementById('package').value = plan;
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function payWithPayPal(plan) {
-            let amount;
-            switch(plan) {
-                case 'basic':
-                    amount = '250';
-                    break;
-                case 'standard':
-                    amount = '500';
-                    break;
-                case 'premium':
-                    amount = '950';
-                    break;
-            }
-            window.open('https://paypal.me/NikitaKornev872/' + amount, '_blank');
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+  <script id="app-script">
+    // US States and Capitals Data
+    const statesData = [
+      { id: "AL", name: "Alabama", capital: "Montgomery" },
+      { id: "AK", name: "Alaska", capital: "Juneau" },
+      { id: "AZ", name: "Arizona", capital: "Phoenix" },
+      { id: "AR", name: "Arkansas", capital: "Little Rock" },
+      { id: "CA", name: "California", capital: "Sacramento" },
+      { id: "CO", name: "Colorado", capital: "Denver" },
+      { id: "CT", name: "Connecticut", capital: "Hartford" },
+      { id: "DE", name: "Delaware", capital: "Dover" },
+      { id: "FL", name: "Florida", capital: "Tallahassee" },
+      { id: "GA", name: "Georgia", capital: "Atlanta" },
+      { id: "HI", name: "Hawaii", capital: "Honolulu" },
+      { id: "ID", name: "Idaho", capital: "Boise" },
+      { id: "IL", name: "Illinois", capital: "Springfield" },
+      { id: "IN", name: "Indiana", capital: "Indianapolis" },
+      { id: "IA", name: "Iowa", capital: "Des Moines" },
+      { id: "KS", name: "Kansas", capital: "Topeka" },
+      { id: "KY", name: "Kentucky", capital: "Frankfort" },
+      { id: "LA", name: "Louisiana", capital: "Baton Rouge" },
+      { id: "ME", name: "Maine", capital: "Augusta" },
+      { id: "MD", name: "Maryland", capital: "Annapolis" },
+      { id: "MA", name: "Massachusetts", capital: "Boston" },
+      { id: "MI", name: "Michigan", capital: "Lansing" },
+      { id: "MN", name: "Minnesota", capital: "St. Paul" },
+      { id: "MS", name: "Mississippi", capital: "Jackson" },
+      { id: "MO", name: "Missouri", capital: "Jefferson City" },
+      { id: "MT", name: "Montana", capital: "Helena" },
+      { id: "NE", name: "Nebraska", capital: "Lincoln" },
+      { id: "NV", name: "Nevada", capital: "Carson City" },
+      { id: "NH", name: "New Hampshire", capital: "Concord" },
+      { id: "NJ", name: "New Jersey", capital: "Trenton" },
+      { id: "NM", name: "New Mexico", capital: "Santa Fe" },
+      { id: "NY", name: "New York", capital: "Albany" },
+      { id: "NC", name: "North Carolina", capital: "Raleigh" },
+      { id: "ND", name: "North Dakota", capital: "Bismarck" },
+      { id: "OH", name: "Ohio", capital: "Columbus" },
+      { id: "OK", name: "Oklahoma", capital: "Oklahoma City" },
+      { id: "OR", name: "Oregon", capital: "Salem" },
+      { id: "PA", name: "Pennsylvania", capital: "Harrisburg" },
+      { id: "RI", name: "Rhode Island", capital: "Providence" },
+      { id: "SC", name: "South Carolina", capital: "Columbia" },
+      { id: "SD", name: "South Dakota", capital: "Pierre" },
+      { id: "TN", name: "Tennessee", capital: "Nashville" },
+      { id: "TX", name: "Texas", capital: "Austin" },
+      { id: "UT", name: "Utah", capital: "Salt Lake City" },
+      { id: "VT", name: "Vermont", capital: "Montpelier" },
+      { id: "VA", name: "Virginia", capital: "Richmond" },
+      { id: "WA", name: "Washington", capital: "Olympia" },
+      { id: "WV", name: "West Virginia", capital: "Charleston" },
+      { id: "WI", name: "Wisconsin", capital: "Madison" },
+      { id: "WY", name: "Wyoming", capital: "Cheyenne" }
+    ];
+    
+    // Capital coordinates for map display - simplified for prototype
+    const capitalCoordinates = {};
+    
+    // App state
+    const appState = {
+      quizType: "states", // "states" or "capitals"
+      quizMode: "map", // "map" or "multipleChoice"
+      enabledStates: {},
+      currentQuestion: null,
+      currentChoices: [],
+      attempts: 0,
+      correct: 0,
+      total: 0,
+      activeState: null
+    };
+    
+    // Load state from localStorage if available
+    function loadStateFromStorage() {
+      try {
+        const savedState = localStorage.getItem('usQuizAppState');
+        if (savedState) {
+          const parsedState = JSON.parse(savedState);
+          
+          // Apply theme
+          if (parsedState.theme) {
+            setTheme(parsedState.theme);
+          }
+          
+          // Apply quiz type
+          if (parsedState.quizType) {
+            appState.quizType = parsedState.quizType;
+            $('#quiz-type-toggle').prop('checked', parsedState.quizType === 'capitals');
+          }
+          
+          // Apply quiz mode
+          if (parsedState.quizMode) {
+            appState.quizMode = parsedState.quizMode;
+            updateQuizModeUI();
+          }
+          
+          // Apply enabled states
+          if (parsedState.enabledStates) {
+            appState.enabledStates = parsedState.enabledStates;
+          } else {
+            // Default: enable all states
+            statesData.forEach(state => {
+              appState.enabledStates[state.id] = true;
             });
+          }
+          
+          // Apply counters
+          if (parsedState.attempts !== undefined) appState.attempts = parsedState.attempts;
+          if (parsedState.correct !== undefined) appState.correct = parsedState.correct;
+          
+          updateCounters();
+        } else {
+          // Default: enable all states
+          statesData.forEach(state => {
+            appState.enabledStates[state.id] = true;
+          });
+        }
+      } catch (e) {
+        console.error('Error loading state from storage:', e);
+        // Default: enable all states
+        statesData.forEach(state => {
+          appState.enabledStates[state.id] = true;
         });
-
-        // Mobile menu toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+      }
+    }
+    
+    // Save state to localStorage
+    function saveStateToStorage() {
+      try {
+        const stateToSave = {
+          theme: $('body').attr('class'),
+          quizType: appState.quizType,
+          quizMode: appState.quizMode,
+          enabledStates: appState.enabledStates,
+          attempts: appState.attempts,
+          correct: appState.correct
+        };
+        localStorage.setItem('usQuizAppState', JSON.stringify(stateToSave));
+      } catch (e) {
+        console.error('Error saving state to storage:', e);
+      }
+    }
+    
+    // Initialize states list
+    function initStatesListUI() {
+      $('#states-loader').hide();
+      const $statesList = $('#states-list');
+      
+      statesData.forEach(state => {
+        const isChecked = appState.enabledStates[state.id] === true;
+        const $checkbox = $(`
+          <div class="checkbox-custom py-1">
+            <input type="checkbox" id="state-${state.id}" 
+                   data-state-id="${state.id}" 
+                   class="state-checkbox mr-2" 
+                   ${isChecked ? 'checked' : ''}>
+            <label for="state-${state.id}">${state.name}</label>
+          </div>
+        `);
+        $statesList.append($checkbox);
+      });
+      
+      // Event listener for state checkboxes
+      $('.state-checkbox').on('change', function() {
+        const stateId = $(this).data('state-id');
+        appState.enabledStates[stateId] = $(this).is(':checked');
+        
+        updateMap();
+        updateCounters();
+        saveStateToStorage();
+        
+        if (appState.quizMode === 'multipleChoice') {
+          startMultipleChoiceQuiz();
+        }
+      });
+    }
+    
+    // Update counters display
+    function updateCounters() {
+      const enabledCount = Object.values(appState.enabledStates).filter(val => val === true).length;
+      appState.total = enabledCount;
+      
+      $('#attempts-counter').text(appState.attempts);
+      $('#correct-counter').text(appState.correct);
+      $('#total-counter').text(appState.total);
+    }
+    
+    // Load US map data (using D3.js)
+    function loadUsMap() {
+      // For the prototype, use a sample geoJSON URL - in real app, would use actual geoJSON file
+      d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json").then(us => {
+        $('#map-loader').hide();
+        
+        // Convert TopoJSON to GeoJSON
+        const states = topojson.feature(us, us.objects.states).features;
+        
+        // Create map
+        const svg = d3.select("#us-map");
+        
+        // Draw states
+        svg.selectAll("path")
+          .data(states)
+          .enter()
+          .append("path")
+          .attr("class", d => {
+            const stateData = statesData.find(state => state.id === d.properties.postal);
+            return `state-path ${stateData && appState.enabledStates[stateData.id] ? 'enabled' : ''}`;
+          })
+          .attr("data-state-id", d => d.properties.postal)
+          .attr("d", d3.geoPath())
+          .on("click", function(event, d) {
+            if (appState.quizMode === 'map' && appState.quizType === 'states') {
+              const stateId = d.properties.postal;
+              if (appState.enabledStates[stateId]) {
+                handleMapQuizAnswer(stateId);
+              }
+            }
+          });
+        
+        // Add capitals (simplified for prototype - real app would use actual coordinates)
+        svg.append("g")
+          .selectAll("circle")
+          .data(statesData)
+          .enter()
+          .append("circle")
+          .attr("class", d => `capital-marker ${appState.enabledStates[d.id] ? 'enabled' : 'disabled'}`)
+          .attr("data-capital", d => d.capital)
+          .attr("data-state-id", d => d.id)
+          .attr("cx", (d, i) => 100 + (i % 10) * 80) // Simplified positions for prototype
+          .attr("cy", (d, i) => 100 + Math.floor(i / 10) * 80) // Simplified positions for prototype
+          .attr("r", 5)
+          .style("display", appState.quizType === 'capitals' ? 'block' : 'none')
+          .on("click", function(event, d) {
+            if (appState.quizMode === 'map' && appState.quizType === 'capitals') {
+              if (appState.enabledStates[d.id]) {
+                handleMapQuizAnswer(d.id);
+              }
+            }
+          });
+        
+        // Set up initial quiz state
+        updateMap();
+        if (appState.quizMode === 'map') {
+          setupMapQuiz();
+        }
+      }).catch(error => {
+        console.error('Error loading map:', error);
+        $('#map-loader').hide();
+        $('#us-map-container').html('<div class="text-center text-red-500">Error loading map. <button class="text-blue-500 underline" onclick="location.reload()">Retry</button></div>');
+      });
+    }
+    
+    // Update map based on enabled states
+    function updateMap() {
+      d3.selectAll(".state-path")
+        .attr("class", function() {
+          const stateId = d3.select(this).attr("data-state-id");
+          return `state-path ${appState.enabledStates[stateId] ? 'enabled' : ''}`;
         });
-    </script>
+      
+      d3.selectAll(".capital-marker")
+        .attr("class", function() {
+          const stateId = d3.select(this).attr("data-state-id");
+          return `capital-marker ${appState.enabledStates[stateId] ? 'enabled' : 'disabled'}`;
+        })
+        .style("display", appState.quizType === 'capitals' ? 'block' : 'none');
+    }
+    
+    // Set up map quiz
+    function setupMapQuiz() {
+      // Get list of enabled states
+      const enabledStates = statesData.filter(state => appState.enabledStates[state.id]);
+      
+      if (enabledStates.length === 0) {
+        Swal.fire({
+          title: 'No states selected',
+          text: 'Please select at least one state to start the quiz.',
+          icon: 'warning',
+          confirmButtonColor: 'var(--primary-color)'
+        });
+        return;
+      }
+      
+      // Select a random state
+      const randomIndex = Math.floor(Math.random() * enabledStates.length);
+      appState.activeState = enabledStates[randomIndex];
+      
+      // Update prompt based on quiz type
+      if (appState.quizType === 'states') {
+        // Highlight capital, ask for state
+        Swal.fire({
+          title: 'Map Quiz',
+          text: `Click on the state where ${appState.activeState.capital} is the capital.`,
+          confirmButtonColor: 'var(--primary-color)'
+        });
+      } else {
+        // Highlight state, ask for capital
+        Swal.fire({
+          title: 'Map Quiz',
+          text: `Click on the capital of ${appState.activeState.name}.`,
+          confirmButtonColor: 'var(--primary-color)'
+        });
+      }
+    }
+    
+    // Handle map quiz answers
+    function handleMapQuizAnswer(answerId) {
+      appState.attempts++;
+      
+      if (answerId === appState.activeState.id) {
+        // Correct answer
+        appState.correct++;
+        
+        // Flash green
+        if (appState.quizType === 'states') {
+          d3.select(`path[data-state-id="${answerId}"]`)
+            .style("fill", "var(--correct-color)")
+            .transition()
+            .duration(1000)
+            .style("fill", null);
+        } else {
+          d3.select(`circle[data-state-id="${answerId}"]`)
+            .style("fill", "var(--correct-color)")
+            .transition()
+            .duration(1000)
+            .style("fill", null);
+        }
+        
+        // Update counters
+        updateCounters();
+        saveStateToStorage();
+        
+        // Move to next question after a brief pause
+        setTimeout(() => {
+          setupMapQuiz();
+        }, 1000);
+      } else {
+        // Incorrect answer
+        
+        // Flash red
+        if (appState.quizType === 'states') {
+          d3.select(`path[data-state-id="${answerId}"]`)
+            .style("fill", "var(--incorrect-color)")
+            .transition()
+            .duration(1000)
+            .style("fill", null);
+        } else {
+          d3.select(`circle[data-state-id="${answerId}"]`)
+            .style("fill", "var(--incorrect-color)")
+            .transition()
+            .duration(1000)
+            .style("fill", null);
+        }
+        
+        // Show tooltip
+        const tooltip = $('#map-tooltip');
+        tooltip.addClass('visible');
+        
+        // Position tooltip near mouse
+        tooltip.css({
+          top: d3.pointer(event)[1] + 'px',
+          left: d3.pointer(event)[0] + 'px'
+        });
+        
+        // Hide tooltip after a delay
+        setTimeout(() => {
+          tooltip.removeClass('visible');
+        }, 2000);
+        
+        // Update counters
+        updateCounters();
+        saveStateToStorage();
+      }
+    }
+    
+    // Start multiple choice quiz
+    function startMultipleChoiceQuiz() {
+      // Get list of enabled states
+      const enabledStates = statesData.filter(state => appState.enabledStates[state.id]);
+      
+      if (enabledStates.length < 4) {
+        $('#quiz-prompt').text('Please select at least 4 states to start the multiple choice quiz.');
+        $('#choices-container').empty();
+        return;
+      }
+      
+      // Select a random state for the question
+      const randomIndex = Math.floor(Math.random() * enabledStates.length);
+      appState.activeState = enabledStates[randomIndex];
+      
+      // Generate choices
+      let choices = [appState.activeState];
+      
+      // Add 3 more random states that are different from the correct answer
+      while (choices.length < 4) {
+        const randomState = enabledStates[Math.floor(Math.random() * enabledStates.length)];
+        if (!choices.includes(randomState)) {
+          choices.push(randomState);
+        }
+      }
+      
+      // Shuffle choices
+      choices = shuffleArray(choices);
+      
+      // Update UI
+      if (appState.quizType === 'states') {
+        $('#quiz-prompt').text(`What state has ${appState.activeState.capital} as its capital?`);
+      } else {
+        $('#quiz-prompt').text(`What is the capital of ${appState.activeState.name}?`);
+      }
+      
+      // Add choice buttons
+      $('#choices-container').empty();
+      choices.forEach(state => {
+        const buttonText = appState.quizType === 'states' ? state.name : state.capital;
+        const $button = $(`<button class="choice-btn" data-state-id="${state.id}">${buttonText}</button>`);
+        $('#choices-container').append($button);
+      });
+      
+      // Add event listeners to choice buttons
+      $('.choice-btn').on('click', function() {
+        const selectedStateId = $(this).data('state-id');
+        handleMultipleChoiceAnswer(selectedStateId);
+      });
+    }
+    
+    // Handle multiple choice answers
+    function handleMultipleChoiceAnswer(answerId) {
+      appState.attempts++;
+      
+      if (answerId === appState.activeState.id) {
+        // Correct answer
+        appState.correct++;
+        
+        // Update button appearance
+        $(`.choice-btn[data-state-id="${answerId}"]`).addClass('correct');
+        
+        // Update counters
+        updateCounters();
+        saveStateToStorage();
+        
+        // Move to next question after a brief pause
+        setTimeout(() => {
+          startMultipleChoiceQuiz();
+        }, 1000);
+      } else {
+        // Incorrect answer
+        
+        // Update button appearance
+        $(`.choice-btn[data-state-id="${answerId}"]`).addClass('incorrect');
+        
+        // Remove class after animation completes
+        setTimeout(() => {
+          $(`.choice-btn[data-state-id="${answerId}"]`).removeClass('incorrect');
+        }, 500);
+        
+        // Update counters
+        updateCounters();
+        saveStateToStorage();
+      }
+    }
+    
+    // Helper function to shuffle array
+    function shuffleArray(array) {
+      let currentIndex = array.length, randomIndex;
+      
+      while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      }
+      
+      return array;
+    }
+    
+    // Set theme
+    function setTheme(theme) {
+      $('body').attr('class', theme);
+      saveStateToStorage();
+    }
+    
+    // Update quiz mode UI
+    function updateQuizModeUI() {
+      if (appState.quizMode === 'map') {
+        $('#map-mode').addClass('active');
+        $('#multiple-choice-mode').removeClass('active');
+        $('#map-quiz-container').show();
+        $('#multiple-choice-container').hide();
+        setupMapQuiz();
+      } else {
+        $('#map-mode').removeClass('active');
+        $('#multiple-choice-mode').addClass('active');
+        $('#map-quiz-container').hide();
+        $('#multiple-choice-container').show();
+        startMultipleChoiceQuiz();
+      }
+    }
+    
+    // Reset quiz
+    function resetQuiz() {
+      appState.attempts = 0;
+      appState.correct = 0;
+      updateCounters();
+      saveStateToStorage();
+      
+      if (appState.quizMode === 'map') {
+        setupMapQuiz();
+      } else {
+        startMultipleChoiceQuiz();
+      }
+    }
+    
+    // Document ready
+    $(document).ready(function() {
+      // Load saved state
+      loadStateFromStorage();
+      
+      // Initialize states list
+      initStatesListUI();
+      
+      // Load US map
+      loadUsMap();
+      
+      // Event listener for quiz type toggle
+      $('#quiz-type-toggle').on('change', function() {
+        appState.quizType = $(this).is(':checked') ? 'capitals' : 'states';
+        updateMap();
+        
+        if (appState.quizMode === 'map') {
+          setupMapQuiz();
+        } else {
+          startMultipleChoiceQuiz();
+        }
+        
+        saveStateToStorage();
+      });
+      
+      // Event listener for mode buttons
+      $('#map-mode').on('click', function() {
+        appState.quizMode = 'map';
+        updateQuizModeUI();
+        saveStateToStorage();
+      });
+      
+      $('#multiple-choice-mode').on('click', function() {
+        appState.quizMode = 'multipleChoice';
+        updateQuizModeUI();
+        saveStateToStorage();
+      });
+      
+      // Event listener for select/deselect all
+      $('#select-all').on('click', function() {
+        $('.state-checkbox').prop('checked', true);
+        statesData.forEach(state => {
+          appState.enabledStates[state.id] = true;
+        });
+        updateMap();
+        updateCounters();
+        saveStateToStorage();
+        
+        if (appState.quizMode === 'multipleChoice') {
+          startMultipleChoiceQuiz();
+        }
+      });
+      
+      $('#deselect-all').on('click', function() {
+        $('.state-checkbox').prop('checked', false);
+        statesData.forEach(state => {
+          appState.enabledStates[state.id] = false;
+        });
+        updateMap();
+        updateCounters();
+        saveStateToStorage();
+        
+        if (appState.quizMode === 'multipleChoice') {
+          startMultipleChoiceQuiz();
+        }
+      });
+      
+      // Event listener for reset button
+      $('#reset-quiz').on('click', function() {
+        resetQuiz();
+      });
+      
+      // Event listener for collapsing states list
+      $('#collapse-toggle').on('click', function() {
+        $('#states-list').toggleClass('collapsed');
+        $('.collapse-button').toggleClass('rotate-180');
+      });
+      
+      // Settings panel
+      $('#settings-button').on('click', function() {
+        $('#settings-panel').toggle();
+      });
+      
+      // Theme options
+      $('.theme-option').on('click', function() {
+        const theme = $(this).data('theme');
+        setTheme(`theme-${theme}`);
+        $('#settings-panel').hide();
+      });
+      
+      // Close settings panel when clicking outside
+      $(document).on('click', function(event) {
+        if (!$(event.target).closest('#settings-panel').length && 
+            !$(event.target).closest('#settings-button').length) {
+          $('#settings-panel').hide();
+        }
+      });
+      
+      // Initialize based on current quiz mode
+      updateQuizModeUI();
+    });
+  </script>
+
 </body>
-                        <label for="business-name">Business Name *</label>
-                        <input type="text" id="business-name" name="business-name" required>
-                    </div>
-                    
-                    <div class="form
+</html>
