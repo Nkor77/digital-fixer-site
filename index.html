@@ -1,1090 +1,783 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>U.S. States & Capitals Quiz</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style id="app-style">
-    .theme-playful {
-      --primary-color: #FF9E44;
-      --secondary-color: #5B9BD5;
-      --accent-color: #FF5252;
-      --background-color: #FFFFE0;
-      --text-color: #333333;
-      --button-color: #6ECB63;
-      --button-hover: #4CAF50;
-      --correct-color: #66BB6A;
-      --incorrect-color: #FF5252;
-      --panel-bg: #FFF9C4;
-      --toggle-bg: #FFB74D;
-      --toggle-active: #FF9800;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Play Games Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .theme-modern {
-      --primary-color: #3498db;
-      --secondary-color: #2c3e50;
-      --accent-color: #e74c3c;
-      --background-color: #f5f5f5;
-      --text-color: #2c3e50;
-      --button-color: #3498db;
-      --button-hover: #2980b9;
-      --correct-color: #2ecc71;
-      --incorrect-color: #e74c3c;
-      --panel-bg: #ffffff;
-      --toggle-bg: #bdc3c7;
-      --toggle-active: #3498db;
-      font-family: 'Roboto', sans-serif;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
 
-    .theme-minimalist {
-      --primary-color: #555555;
-      --secondary-color: #333333;
-      --accent-color: #777777;
-      --background-color: #ffffff;
-      --text-color: #333333;
-      --button-color: #dddddd;
-      --button-hover: #cccccc;
-      --correct-color: #4caf50;
-      --incorrect-color: #f44336;
-      --panel-bg: #f9f9f9;
-      --toggle-bg: #e0e0e0;
-      --toggle-active: #bbbbbb;
-      font-family: 'Arial', sans-serif;
-    }
+        .header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
 
-    body {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      transition: all 0.3s ease;
-    }
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 30px;
-    }
+        .search-container {
+            margin: 1rem 0;
+        }
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+        .search-bar {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            width: 400px;
+            max-width: 80%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+            outline: none;
+            transition: all 0.3s ease;
+        }
 
-    .toggle-slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--toggle-bg);
-      transition: .4s;
-      border-radius: 34px;
-    }
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-    .toggle-slider:before {
-      position: absolute;
-      content: "";
-      height: 22px;
-      width: 22px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
+        .search-bar:focus {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
 
-    input:checked + .toggle-slider {
-      background-color: var(--toggle-active);
-    }
+        .games-container {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    input:checked + .toggle-slider:before {
-      transform: translateX(30px);
-    }
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-    .checkbox-custom {
-      display: flex;
-      align-items: center;
-    }
-    
-    .checkbox-custom input[type="checkbox"] {
-      accent-color: var(--primary-color);
-      width: 16px;
-      height: 16px;
-    }
+        .game-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
 
-    .btn-mode {
-      background-color: var(--button-color);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
 
-    .btn-mode:hover {
-      background-color: var(--button-hover);
-      transform: translateY(-2px);
-    }
+        .game-area {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    .btn-mode.active {
-      background-color: var(--secondary-color);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    }
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
 
-    .state-path {
-      fill: #DDDDDD;
-      stroke: white;
-      stroke-width: 1;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .state-path.enabled {
-      fill: var(--secondary-color);
-      opacity: 0.7;
-    }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
 
-    .state-path.enabled:hover {
-      opacity: 0.9;
-      stroke-width: 2;
-    }
+        .canvas-game {
+            border: 2px solid #4ecdc4;
+            border-radius: 5px;
+        }
 
-    .capital-marker {
-      fill: var(--accent-color);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
+        .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
 
-    .capital-marker.enabled {
-      opacity: 1;
-    }
+        /* Chatbot Styles */
+        .chatbot-container {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .capital-marker.enabled:hover {
-      transform: scale(1.5);
-    }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
 
-    .capital-marker.disabled {
-      opacity: 0.2;
-    }
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 10px;
+        }
 
-    .choice-btn {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: all 0.3s;
-      margin: 8px;
-      min-width: 200px;
-    }
+        .user-message {
+            background: rgba(76, 175, 80, 0.3);
+            text-align: right;
+        }
 
-    .choice-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+        .bot-message {
+            background: rgba(33, 150, 243, 0.3);
+            text-align: left;
+        }
 
-    .choice-btn.correct {
-      background-color: var(--correct-color);
-      animation: pulse 0.5s;
-    }
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
 
-    .choice-btn.incorrect {
-      background-color: var(--incorrect-color);
-      animation: shake 0.5s;
-    }
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
+        /* Gun Spin Game */
+        .gun-spin-area {
+            text-align: center;
+        }
 
-    .settings-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: var(--secondary-color);
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: all 0.3s;
-      z-index: 1000;
-    }
+        .gun {
+            font-size: 4rem;
+            margin: 1rem 0;
+            transition: transform 0.5s ease;
+        }
 
-    .settings-button:hover {
-      transform: rotate(30deg);
-    }
+        .spinning {
+            animation: spin 2s linear infinite;
+        }
 
-    .settings-panel {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      z-index: 999;
-      display: none;
-    }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-    .theme-option {
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
+        /* Dice Game */
+        .dice-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 1rem 0;
+        }
 
-    .theme-option:hover {
-      background-color: #f0f0f0;
-    }
+        .dice {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: black;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 2px solid #4ecdc4;
+        }
 
-    .collapse-button {
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
+        /* Rock Paper Scissors */
+        .rps-choices {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 1rem 0;
+        }
 
-    .rotate-180 {
-      transform: rotate(180deg);
-    }
+        .rps-choice {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .states-list {
-      max-height: 400px;
-      overflow-y: auto;
-      transition: max-height 0.3s ease;
-    }
+        .rps-choice:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
 
-    .states-list.collapsed {
-      max-height: 0;
-      overflow: hidden;
-    }
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            gap: 5px;
+            justify-content: center;
+        }
 
-    /* Custom scrollbar */
-    .states-list::-webkit-scrollbar {
-      width: 8px;
-    }
+        .memory-card {
+            width: 60px;
+            height: 60px;
+            background: #4ecdc4;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .states-list::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
+        .memory-card.flipped {
+            background: #ff6b6b;
+            transform: rotateY(180deg);
+        }
 
-    .states-list::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 10px;
-    }
+        .memory-card.matched {
+            background: #45b7d1;
+            opacity: 0.6;
+        }
 
-    .states-list::-webkit-scrollbar-thumb:hover {
-      background: var(--secondary-color);
-    }
+        /* Quiz Styles */
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
 
-    /* Map container */
-    .map-container {
-      position: relative;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
 
-    #us-map {
-      width: 100%;
-      height: auto;
-    }
+        .quiz-option {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    /* Loader */
-    .loader {
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid var(--primary-color);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+        .quiz-option.correct {
+            background: #4ecdc4;
+        }
 
-    /* Try again tooltip */
-    .tooltip {
-      position: absolute;
-      background-color: var(--incorrect-color);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      z-index: 100;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
+        .quiz-option.wrong {
+            background: #ff6b6b;
+        }
 
-    .tooltip.visible {
-      opacity: 1;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .main-container {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        width: 100%;
-        max-width: 100%;
-      }
-      
-      .quiz-container {
-        width: 100%;
-      }
-      
-      .choice-btn {
-        min-width: 100%;
-      }
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .games-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
-<body class="theme-playful">
-  <div class="container mx-auto px-4 py-6">
-    <h1 class="text-4xl font-bold text-center mb-6">U.S. States & Capitals Quiz</h1>
-    
-    <div class="main-container flex flex-wrap">
-      <!-- Left sidebar -->
-      <div class="sidebar w-full md:w-1/3 p-4">
-        <div class="bg-white rounded-lg shadow-lg p-4" style="background-color: var(--panel-bg)">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">Quiz Settings</h2>
-            <div class="flex items-center">
-              <span class="mr-2">States</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="quiz-type-toggle">
-                <span class="toggle-slider"></span>
-              </label>
-              <span class="ml-2">Capitals</span>
-            </div>
-          </div>
-          
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold">Select States</h3>
-            <div class="flex">
-              <button id="select-all" class="text-sm mr-2 px-2 py-1 rounded" style="background-color: var(--button-color); color: white;">Select All</button>
-              <button id="deselect-all" class="text-sm px-2 py-1 rounded" style="background-color: var(--button-color); color: white;">Deselect All</button>
-            </div>
-          </div>
-          
-          <div class="flex justify-between items-center mb-2 cursor-pointer" id="collapse-toggle">
-            <span class="font-semibold">States List</span>
-            <i class="fas fa-chevron-down collapse-button"></i>
-          </div>
-          
-          <div class="states-list" id="states-list">
-            <!-- States checkboxes will be dynamically populated -->
-            <div class="loader" id="states-loader"></div>
-          </div>
+<body>
+    <div class="header">
+        <h1>🎮 GameHub</h1>
+        <p>Your ultimate destination for online games!</p>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search games..." id="searchBar">
         </div>
-      </div>
-      
-      <!-- Right quiz area -->
-      <div class="quiz-container w-full md:w-2/3 p-4">
-        <div class="bg-white rounded-lg shadow-lg p-4 h-full" style="background-color: var(--panel-bg)">
-          <!-- Quiz mode selection -->
-          <div class="flex justify-center mb-4 gap-4">
-            <button id="map-mode" class="btn-mode active">
-              <i class="fas fa-map-marked-alt mr-2"></i> Map Click
-            </button>
-            <button id="multiple-choice-mode" class="btn-mode">
-              <i class="fas fa-list-ol mr-2"></i> Multiple Choice
-            </button>
-          </div>
-          
-          <!-- Score display -->
-          <div class="flex justify-center mb-4 text-lg font-bold">
-            <span>Attempts: <span id="attempts-counter">0</span> | </span>
-            <span class="ml-2">Correct: <span id="correct-counter">0</span>/<span id="total-counter">0</span></span>
-            <button id="reset-quiz" class="ml-4 px-3 py-1 rounded text-sm" style="background-color: var(--accent-color); color: white;">
-              <i class="fas fa-redo-alt mr-1"></i> Reset
-            </button>
-          </div>
-          
-          <!-- Map quiz mode -->
-          <div id="map-quiz-container" class="h-[500px] flex items-center justify-center">
-            <div class="map-container">
-              <div id="us-map-container" class="w-full h-full relative">
-                <div class="loader" id="map-loader"></div>
-                <svg id="us-map" preserveAspectRatio="xMidYMid meet" viewBox="0 0 959 593"></svg>
-                <div class="tooltip" id="map-tooltip">Incorrect. Try again!</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Multiple choice quiz mode (initially hidden) -->
-          <div id="multiple-choice-container" class="flex flex-col items-center h-[500px] hidden">
-            <div class="text-2xl font-bold mb-6 text-center" id="quiz-prompt">Loading question...</div>
-            <div id="choices-container" class="flex flex-wrap justify-center">
-              <!-- Choices will be dynamically added here -->
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-    
-    <!-- Settings button -->
-    <div class="settings-button" id="settings-button">
-      <i class="fas fa-cog fa-lg"></i>
-    </div>
-    
-    <!-- Settings panel -->
-    <div class="settings-panel" id="settings-panel">
-      <h3 class="text-lg font-bold mb-3">Theme Settings</h3>
-      <div class="theme-option" data-theme="playful">
-        <i class="fas fa-paint-brush mr-2"></i> Playful Cartoonish
-      </div>
-      <div class="theme-option" data-theme="modern">
-        <i class="fas fa-paint-brush mr-2"></i> Modern Flat
-      </div>
-      <div class="theme-option" data-theme="minimalist">
-        <i class="fas fa-paint-brush mr-2"></i> Minimalist
-      </div>
-    </div>
-  </div>
 
-  <script id="app-script">
-    // US States and Capitals Data
-    const statesData = [
-      { id: "AL", name: "Alabama", capital: "Montgomery" },
-      { id: "AK", name: "Alaska", capital: "Juneau" },
-      { id: "AZ", name: "Arizona", capital: "Phoenix" },
-      { id: "AR", name: "Arkansas", capital: "Little Rock" },
-      { id: "CA", name: "California", capital: "Sacramento" },
-      { id: "CO", name: "Colorado", capital: "Denver" },
-      { id: "CT", name: "Connecticut", capital: "Hartford" },
-      { id: "DE", name: "Delaware", capital: "Dover" },
-      { id: "FL", name: "Florida", capital: "Tallahassee" },
-      { id: "GA", name: "Georgia", capital: "Atlanta" },
-      { id: "HI", name: "Hawaii", capital: "Honolulu" },
-      { id: "ID", name: "Idaho", capital: "Boise" },
-      { id: "IL", name: "Illinois", capital: "Springfield" },
-      { id: "IN", name: "Indiana", capital: "Indianapolis" },
-      { id: "IA", name: "Iowa", capital: "Des Moines" },
-      { id: "KS", name: "Kansas", capital: "Topeka" },
-      { id: "KY", name: "Kentucky", capital: "Frankfort" },
-      { id: "LA", name: "Louisiana", capital: "Baton Rouge" },
-      { id: "ME", name: "Maine", capital: "Augusta" },
-      { id: "MD", name: "Maryland", capital: "Annapolis" },
-      { id: "MA", name: "Massachusetts", capital: "Boston" },
-      { id: "MI", name: "Michigan", capital: "Lansing" },
-      { id: "MN", name: "Minnesota", capital: "St. Paul" },
-      { id: "MS", name: "Mississippi", capital: "Jackson" },
-      { id: "MO", name: "Missouri", capital: "Jefferson City" },
-      { id: "MT", name: "Montana", capital: "Helena" },
-      { id: "NE", name: "Nebraska", capital: "Lincoln" },
-      { id: "NV", name: "Nevada", capital: "Carson City" },
-      { id: "NH", name: "New Hampshire", capital: "Concord" },
-      { id: "NJ", name: "New Jersey", capital: "Trenton" },
-      { id: "NM", name: "New Mexico", capital: "Santa Fe" },
-      { id: "NY", name: "New York", capital: "Albany" },
-      { id: "NC", name: "North Carolina", capital: "Raleigh" },
-      { id: "ND", name: "North Dakota", capital: "Bismarck" },
-      { id: "OH", name: "Ohio", capital: "Columbus" },
-      { id: "OK", name: "Oklahoma", capital: "Oklahoma City" },
-      { id: "OR", name: "Oregon", capital: "Salem" },
-      { id: "PA", name: "Pennsylvania", capital: "Harrisburg" },
-      { id: "RI", name: "Rhode Island", capital: "Providence" },
-      { id: "SC", name: "South Carolina", capital: "Columbia" },
-      { id: "SD", name: "South Dakota", capital: "Pierre" },
-      { id: "TN", name: "Tennessee", capital: "Nashville" },
-      { id: "TX", name: "Texas", capital: "Austin" },
-      { id: "UT", name: "Utah", capital: "Salt Lake City" },
-      { id: "VT", name: "Vermont", capital: "Montpelier" },
-      { id: "VA", name: "Virginia", capital: "Richmond" },
-      { id: "WA", name: "Washington", capital: "Olympia" },
-      { id: "WV", name: "West Virginia", capital: "Charleston" },
-      { id: "WI", name: "Wisconsin", capital: "Madison" },
-      { id: "WY", name: "Wyoming", capital: "Cheyenne" }
-    ];
-    
-    // Capital coordinates for map display - simplified for prototype
-    const capitalCoordinates = {};
-    
-    // App state
-    const appState = {
-      quizType: "states", // "states" or "capitals"
-      quizMode: "map", // "map" or "multipleChoice"
-      enabledStates: {},
-      currentQuestion: null,
-      currentChoices: [],
-      attempts: 0,
-      correct: 0,
-      total: 0,
-      activeState: null
-    };
-    
-    // Load state from localStorage if available
-    function loadStateFromStorage() {
-      try {
-        const savedState = localStorage.getItem('usQuizAppState');
-        if (savedState) {
-          const parsedState = JSON.parse(savedState);
-          
-          // Apply theme
-          if (parsedState.theme) {
-            setTheme(parsedState.theme);
-          }
-          
-          // Apply quiz type
-          if (parsedState.quizType) {
-            appState.quizType = parsedState.quizType;
-            $('#quiz-type-toggle').prop('checked', parsedState.quizType === 'capitals');
-          }
-          
-          // Apply quiz mode
-          if (parsedState.quizMode) {
-            appState.quizMode = parsedState.quizMode;
-            updateQuizModeUI();
-          }
-          
-          // Apply enabled states
-          if (parsedState.enabledStates) {
-            appState.enabledStates = parsedState.enabledStates;
-          } else {
-            // Default: enable all states
-            statesData.forEach(state => {
-              appState.enabledStates[state.id] = true;
+    <div class="games-container" id="gamesContainer">
+        <!-- AI Chatbot -->
+        <div class="game-card" data-game="chatbot ai">
+            <h3>🤖 AI Chatbot</h3>
+            <div class="game-area chatbot-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        Hi! I'm your AI game companion. Ask me anything or let's chat!
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                    <button class="btn" onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gun Spin Game -->
+        <div class="game-card" data-game="gun spin shooter">
+            <h3>🔫 Gun Spin</h3>
+            <div class="game-area gun-spin-area">
+                <div class="gun" id="gunSpinner">🔫</div>
+                <p>Click to spin the gun!</p>
+                <p id="gunResult"></p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="spinGun()">Spin Gun</button>
+                <button class="btn" onclick="resetGunSpin()">Reset</button>
+            </div>
+            <div class="score">Spins: <span id="gunSpins">0</span></div>
+        </div>
+
+        <!-- Snake Game -->
+        <div class="game-card" data-game="snake">
+            <h3>🐍 Snake Game</h3>
+            <div class="game-area">
+                <canvas id="snakeCanvas" class="canvas-game" width="300" height="300"></canvas>
+                <p style="margin-top: 10px; font-size: 0.9rem;">Use arrow keys to move</p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="startSnake()">Start</button>
+                <button class="btn" onclick="resetSnake()">Reset</button>
+            </div>
+            <div class="score">Score: <span id="snakeScore">0</span></div>
+        </div>
+
+        <!-- Flappy Bird -->
+        <div class="game-card" data-game="flappy bird">
+            <h3>🐦 Flappy Bird</h3>
+            <div class="game-area">
+                <canvas id="flappyCanvas" class="canvas-game" width="320" height="240" style="background: linear-gradient(to bottom, #87CEEB, #98FB98);"></canvas>
+                <p style="margin-top: 10px; font-size: 0.9rem;">Click canvas or press space to flap</p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="startFlappy()">Start</button>
+                <button class="btn" onclick="resetFlappy()">Reset</button>
+            </div>
+            <div class="score">Score: <span id="flappyScore">0</span></div>
+        </div>
+
+        <!-- Dice Rolling Game -->
+        <div class="game-card" data-game="dice roll">
+            <h3>🎲 Dice Roller</h3>
+            <div class="game-area">
+                <div class="dice-container">
+                    <div class="dice" id="dice1">?</div>
+                    <div class="dice" id="dice2">?</div>
+                </div>
+                <p>Total: <span id="diceTotal">0</span></p>
+                <p id="diceResult"></p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="rollDice()">Roll Dice</button>
+                <button class="btn" onclick="resetDice()">Reset</button>
+            </div>
+            <div class="score">Rolls: <span id="diceRolls">0</span></div>
+        </div>
+
+        <!-- Rock Paper Scissors -->
+        <div class="game-card" data-game="rock paper scissors">
+            <h3>✂️ Rock Paper Scissors</h3>
+            <div class="game-area">
+                <div class="rps-choices">
+                    <div class="rps-choice" onclick="playRPS('rock')">🪨</div>
+                    <div class="rps-choice" onclick="playRPS('paper')">📄</div>
+                    <div class="rps-choice" onclick="playRPS('scissors')">✂️</div>
+                </div>
+                <p>You: <span id="playerChoice">-</span> | AI: <span id="aiChoice">-</span></p>
+                <p id="rpsResult"></p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="resetRPS()">New Game</button>
+            </div>
+            <div class="score">Wins: <span id="rpsWins">0</span> | Losses: <span id="rpsLosses">0</span> | Draws: <span id="rpsDraws">0</span></div>
+        </div>
+
+        <!-- Memory Card Game -->
+        <div class="game-card" data-game="memory cards">
+            <h3>🧠 Memory Match</h3>
+            <div class="game-area">
+                <div class="memory-grid" id="memoryGrid"></div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="startMemory()">New Game</button>
+            </div>
+            <div class="score">Moves: <span id="memoryMoves">0</span> | Matches: <span id="memoryMatches">0</span></div>
+        </div>
+
+        <!-- Number Guessing Game -->
+        <div class="game-card" data-game="number guess">
+            <h3>🔢 Number Guessing</h3>
+            <div class="game-area">
+                <p>I'm thinking of a number between 1 and 100!</p>
+                <div style="margin: 1rem 0;">
+                    <input type="number" id="guessInput" placeholder="Your guess" style="padding: 10px; border-radius: 5px; border: none; margin-right: 10px; width: 100px;">
+                    <button class="btn" onclick="makeGuess()">Guess</button>
+                </div>
+                <p id="guessResult"></p>
+                <p id="guessHint"></p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="startNumberGuess()">New Game</button>
+            </div>
+            <div class="score">Attempts: <span id="guessAttempts">0</span></div>
+        </div>
+
+        <!-- Tic Tac Toe -->
+        <div class="game-card" data-game="tic tac toe">
+            <h3>⭕ Tic Tac Toe</h3>
+            <div class="game-area">
+                <div id="ticTacToeBoard" style="display: grid; grid-template-columns: repeat(3, 80px); gap: 5px; justify-content: center;"></div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <p>Current Player: <span id="currentPlayer">X</span></p>
+                    <p id="gameStatus"></p>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="resetTicTacToe()">New Game</button>
+            </div>
+            <div class="score">X Wins: <span id="xWins">0</span> | O Wins: <span id="oWins">0</span></div>
+        </div>
+
+        <!-- Color Clicker -->
+        <div class="game-card" data-game="color clicker">
+            <h3>🌈 Color Clicker</h3>
+            <div class="game-area">
+                <p>Click the <span id="targetColorName" style="font-weight: bold;">RED</span> circle!</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; justify-content: center; margin: 1rem 0;">
+                    <div class="color-circle" onclick="clickColor('red')" style="width: 80px; height: 80px; background: red; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                    <div class="color-circle" onclick="clickColor('blue')" style="width: 80px; height: 80px; background: blue; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                    <div class="color-circle" onclick="clickColor('green')" style="width: 80px; height: 80px; background: green; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                    <div class="color-circle" onclick="clickColor('yellow')" style="width: 80px; height: 80px; background: yellow; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                    <div class="color-circle" onclick="clickColor('purple')" style="width: 80px; height: 80px; background: purple; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                    <div class="color-circle" onclick="clickColor('orange')" style="width: 80px; height: 80px; background: orange; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                </div>
+                <p id="colorClickResult"></p>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="startColorClick()">New Round</button>
+            </div>
+            <div class="score">Score: <span id="colorClickScore">0</span> | Streak: <span id="colorClickStreak">0</span></div>
+        </div>
+
+        <!-- Quick Quiz -->
+        <div class="game-card" data-game="quiz trivia">
+            <h3>🧩 Quick Quiz</h3>
+            <div class="game-area" id="quizArea">
+                <div class="quiz-question" id="quizQuestion">Click Start to begin!</div>
+                <div class="quiz-options" id="quizOptions"></div>
+            </div>
+            <div class="game-controls">
+                <button class="btn" onclick="startQuiz()">Start Quiz</button>
+                <button class="btn" onclick="nextQuestion()">Next Question</button>
+            </div>
+            <div class="score">Score: <span id="quizScore">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchBar').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            gameCards.forEach(card => {
+                const gameName = card.querySelector('h3').textContent.toLowerCase();
+                const gameType = card.dataset.game;
+                
+                if (gameName.includes(searchTerm) || gameType.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
             });
-          }
-          
-          // Apply counters
-          if (parsedState.attempts !== undefined) appState.attempts = parsedState.attempts;
-          if (parsedState.correct !== undefined) appState.correct = parsedState.correct;
-          
-          updateCounters();
-        } else {
-          // Default: enable all states
-          statesData.forEach(state => {
-            appState.enabledStates[state.id] = true;
-          });
-        }
-      } catch (e) {
-        console.error('Error loading state from storage:', e);
-        // Default: enable all states
-        statesData.forEach(state => {
-          appState.enabledStates[state.id] = true;
         });
-      }
-    }
-    
-    // Save state to localStorage
-    function saveStateToStorage() {
-      try {
-        const stateToSave = {
-          theme: $('body').attr('class'),
-          quizType: appState.quizType,
-          quizMode: appState.quizMode,
-          enabledStates: appState.enabledStates,
-          attempts: appState.attempts,
-          correct: appState.correct
-        };
-        localStorage.setItem('usQuizAppState', JSON.stringify(stateToSave));
-      } catch (e) {
-        console.error('Error saving state to storage:', e);
-      }
-    }
-    
-    // Initialize states list
-    function initStatesListUI() {
-      $('#states-loader').hide();
-      const $statesList = $('#states-list');
-      
-      statesData.forEach(state => {
-        const isChecked = appState.enabledStates[state.id] === true;
-        const $checkbox = $(`
-          <div class="checkbox-custom py-1">
-            <input type="checkbox" id="state-${state.id}" 
-                   data-state-id="${state.id}" 
-                   class="state-checkbox mr-2" 
-                   ${isChecked ? 'checked' : ''}>
-            <label for="state-${state.id}">${state.name}</label>
-          </div>
-        `);
-        $statesList.append($checkbox);
-      });
-      
-      // Event listener for state checkboxes
-      $('.state-checkbox').on('change', function() {
-        const stateId = $(this).data('state-id');
-        appState.enabledStates[stateId] = $(this).is(':checked');
-        
-        updateMap();
-        updateCounters();
-        saveStateToStorage();
-        
-        if (appState.quizMode === 'multipleChoice') {
-          startMultipleChoiceQuiz();
-        }
-      });
-    }
-    
-    // Update counters display
-    function updateCounters() {
-      const enabledCount = Object.values(appState.enabledStates).filter(val => val === true).length;
-      appState.total = enabledCount;
-      
-      $('#attempts-counter').text(appState.attempts);
-      $('#correct-counter').text(appState.correct);
-      $('#total-counter').text(appState.total);
-    }
-    
-    // Load US map data (using D3.js)
-    function loadUsMap() {
-      // For the prototype, use a sample geoJSON URL - in real app, would use actual geoJSON file
-      d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json").then(us => {
-        $('#map-loader').hide();
-        
-        // Convert TopoJSON to GeoJSON
-        const states = topojson.feature(us, us.objects.states).features;
-        
-        // Create map
-        const svg = d3.select("#us-map");
-        
-        // Draw states
-        svg.selectAll("path")
-          .data(states)
-          .enter()
-          .append("path")
-          .attr("class", d => {
-            const stateData = statesData.find(state => state.id === d.properties.postal);
-            return `state-path ${stateData && appState.enabledStates[stateData.id] ? 'enabled' : ''}`;
-          })
-          .attr("data-state-id", d => d.properties.postal)
-          .attr("d", d3.geoPath())
-          .on("click", function(event, d) {
-            if (appState.quizMode === 'map' && appState.quizType === 'states') {
-              const stateId = d.properties.postal;
-              if (appState.enabledStates[stateId]) {
-                handleMapQuizAnswer(stateId);
-              }
-            }
-          });
-        
-        // Add capitals (simplified for prototype - real app would use actual coordinates)
-        svg.append("g")
-          .selectAll("circle")
-          .data(statesData)
-          .enter()
-          .append("circle")
-          .attr("class", d => `capital-marker ${appState.enabledStates[d.id] ? 'enabled' : 'disabled'}`)
-          .attr("data-capital", d => d.capital)
-          .attr("data-state-id", d => d.id)
-          .attr("cx", (d, i) => 100 + (i % 10) * 80) // Simplified positions for prototype
-          .attr("cy", (d, i) => 100 + Math.floor(i / 10) * 80) // Simplified positions for prototype
-          .attr("r", 5)
-          .style("display", appState.quizType === 'capitals' ? 'block' : 'none')
-          .on("click", function(event, d) {
-            if (appState.quizMode === 'map' && appState.quizType === 'capitals') {
-              if (appState.enabledStates[d.id]) {
-                handleMapQuizAnswer(d.id);
-              }
-            }
-          });
-        
-        // Set up initial quiz state
-        updateMap();
-        if (appState.quizMode === 'map') {
-          setupMapQuiz();
-        }
-      }).catch(error => {
-        console.error('Error loading map:', error);
-        $('#map-loader').hide();
-        $('#us-map-container').html('<div class="text-center text-red-500">Error loading map. <button class="text-blue-500 underline" onclick="location.reload()">Retry</button></div>');
-      });
-    }
-    
-    // Update map based on enabled states
-    function updateMap() {
-      d3.selectAll(".state-path")
-        .attr("class", function() {
-          const stateId = d3.select(this).attr("data-state-id");
-          return `state-path ${appState.enabledStates[stateId] ? 'enabled' : ''}`;
-        });
-      
-      d3.selectAll(".capital-marker")
-        .attr("class", function() {
-          const stateId = d3.select(this).attr("data-state-id");
-          return `capital-marker ${appState.enabledStates[stateId] ? 'enabled' : 'disabled'}`;
-        })
-        .style("display", appState.quizType === 'capitals' ? 'block' : 'none');
-    }
-    
-    // Set up map quiz
-    function setupMapQuiz() {
-      // Get list of enabled states
-      const enabledStates = statesData.filter(state => appState.enabledStates[state.id]);
-      
-      if (enabledStates.length === 0) {
-        Swal.fire({
-          title: 'No states selected',
-          text: 'Please select at least one state to start the quiz.',
-          icon: 'warning',
-          confirmButtonColor: 'var(--primary-color)'
-        });
-        return;
-      }
-      
-      // Select a random state
-      const randomIndex = Math.floor(Math.random() * enabledStates.length);
-      appState.activeState = enabledStates[randomIndex];
-      
-      // Update prompt based on quiz type
-      if (appState.quizType === 'states') {
-        // Highlight capital, ask for state
-        Swal.fire({
-          title: 'Map Quiz',
-          text: `Click on the state where ${appState.activeState.capital} is the capital.`,
-          confirmButtonColor: 'var(--primary-color)'
-        });
-      } else {
-        // Highlight state, ask for capital
-        Swal.fire({
-          title: 'Map Quiz',
-          text: `Click on the capital of ${appState.activeState.name}.`,
-          confirmButtonColor: 'var(--primary-color)'
-        });
-      }
-    }
-    
-    // Handle map quiz answers
-    function handleMapQuizAnswer(answerId) {
-      appState.attempts++;
-      
-      if (answerId === appState.activeState.id) {
-        // Correct answer
-        appState.correct++;
-        
-        // Flash green
-        if (appState.quizType === 'states') {
-          d3.select(`path[data-state-id="${answerId}"]`)
-            .style("fill", "var(--correct-color)")
-            .transition()
-            .duration(1000)
-            .style("fill", null);
-        } else {
-          d3.select(`circle[data-state-id="${answerId}"]`)
-            .style("fill", "var(--correct-color)")
-            .transition()
-            .duration(1000)
-            .style("fill", null);
-        }
-        
-        // Update counters
-        updateCounters();
-        saveStateToStorage();
-        
-        // Move to next question after a brief pause
-        setTimeout(() => {
-          setupMapQuiz();
-        }, 1000);
-      } else {
-        // Incorrect answer
-        
-        // Flash red
-        if (appState.quizType === 'states') {
-          d3.select(`path[data-state-id="${answerId}"]`)
-            .style("fill", "var(--incorrect-color)")
-            .transition()
-            .duration(1000)
-            .style("fill", null);
-        } else {
-          d3.select(`circle[data-state-id="${answerId}"]`)
-            .style("fill", "var(--incorrect-color)")
-            .transition()
-            .duration(1000)
-            .style("fill", null);
-        }
-        
-        // Show tooltip
-        const tooltip = $('#map-tooltip');
-        tooltip.addClass('visible');
-        
-        // Position tooltip near mouse
-        tooltip.css({
-          top: d3.pointer(event)[1] + 'px',
-          left: d3.pointer(event)[0] + 'px'
-        });
-        
-        // Hide tooltip after a delay
-        setTimeout(() => {
-          tooltip.removeClass('visible');
-        }, 2000);
-        
-        // Update counters
-        updateCounters();
-        saveStateToStorage();
-      }
-    }
-    
-    // Start multiple choice quiz
-    function startMultipleChoiceQuiz() {
-      // Get list of enabled states
-      const enabledStates = statesData.filter(state => appState.enabledStates[state.id]);
-      
-      if (enabledStates.length < 4) {
-        $('#quiz-prompt').text('Please select at least 4 states to start the multiple choice quiz.');
-        $('#choices-container').empty();
-        return;
-      }
-      
-      // Select a random state for the question
-      const randomIndex = Math.floor(Math.random() * enabledStates.length);
-      appState.activeState = enabledStates[randomIndex];
-      
-      // Generate choices
-      let choices = [appState.activeState];
-      
-      // Add 3 more random states that are different from the correct answer
-      while (choices.length < 4) {
-        const randomState = enabledStates[Math.floor(Math.random() * enabledStates.length)];
-        if (!choices.includes(randomState)) {
-          choices.push(randomState);
-        }
-      }
-      
-      // Shuffle choices
-      choices = shuffleArray(choices);
-      
-      // Update UI
-      if (appState.quizType === 'states') {
-        $('#quiz-prompt').text(`What state has ${appState.activeState.capital} as its capital?`);
-      } else {
-        $('#quiz-prompt').text(`What is the capital of ${appState.activeState.name}?`);
-      }
-      
-      // Add choice buttons
-      $('#choices-container').empty();
-      choices.forEach(state => {
-        const buttonText = appState.quizType === 'states' ? state.name : state.capital;
-        const $button = $(`<button class="choice-btn" data-state-id="${state.id}">${buttonText}</button>`);
-        $('#choices-container').append($button);
-      });
-      
-      // Add event listeners to choice buttons
-      $('.choice-btn').on('click', function() {
-        const selectedStateId = $(this).data('state-id');
-        handleMultipleChoiceAnswer(selectedStateId);
-      });
-    }
-    
-    // Handle multiple choice answers
-    function handleMultipleChoiceAnswer(answerId) {
-      appState.attempts++;
-      
-      if (answerId === appState.activeState.id) {
-        // Correct answer
-        appState.correct++;
-        
-        // Update button appearance
-        $(`.choice-btn[data-state-id="${answerId}"]`).addClass('correct');
-        
-        // Update counters
-        updateCounters();
-        saveStateToStorage();
-        
-        // Move to next question after a brief pause
-        setTimeout(() => {
-          startMultipleChoiceQuiz();
-        }, 1000);
-      } else {
-        // Incorrect answer
-        
-        // Update button appearance
-        $(`.choice-btn[data-state-id="${answerId}"]`).addClass('incorrect');
-        
-        // Remove class after animation completes
-        setTimeout(() => {
-          $(`.choice-btn[data-state-id="${answerId}"]`).removeClass('incorrect');
-        }, 500);
-        
-        // Update counters
-        updateCounters();
-        saveStateToStorage();
-      }
-    }
-    
-    // Helper function to shuffle array
-    function shuffleArray(array) {
-      let currentIndex = array.length, randomIndex;
-      
-      while (currentIndex != 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-      }
-      
-      return array;
-    }
-    
-    // Set theme
-    function setTheme(theme) {
-      $('body').attr('class', theme);
-      saveStateToStorage();
-    }
-    
-    // Update quiz mode UI
-    function updateQuizModeUI() {
-      if (appState.quizMode === 'map') {
-        $('#map-mode').addClass('active');
-        $('#multiple-choice-mode').removeClass('active');
-        $('#map-quiz-container').show();
-        $('#multiple-choice-container').hide();
-        setupMapQuiz();
-      } else {
-        $('#map-mode').removeClass('active');
-        $('#multiple-choice-mode').addClass('active');
-        $('#map-quiz-container').hide();
-        $('#multiple-choice-container').show();
-        startMultipleChoiceQuiz();
-      }
-    }
-    
-    // Reset quiz
-    function resetQuiz() {
-      appState.attempts = 0;
-      appState.correct = 0;
-      updateCounters();
-      saveStateToStorage();
-      
-      if (appState.quizMode === 'map') {
-        setupMapQuiz();
-      } else {
-        startMultipleChoiceQuiz();
-      }
-    }
-    
-    // Document ready
-    $(document).ready(function() {
-      // Load saved state
-      loadStateFromStorage();
-      
-      // Initialize states list
-      initStatesListUI();
-      
-      // Load US map
-      loadUsMap();
-      
-      // Event listener for quiz type toggle
-      $('#quiz-type-toggle').on('change', function() {
-        appState.quizType = $(this).is(':checked') ? 'capitals' : 'states';
-        updateMap();
-        
-        if (appState.quizMode === 'map') {
-          setupMapQuiz();
-        } else {
-          startMultipleChoiceQuiz();
-        }
-        
-        saveStateToStorage();
-      });
-      
-      // Event listener for mode buttons
-      $('#map-mode').on('click', function() {
-        appState.quizMode = 'map';
-        updateQuizModeUI();
-        saveStateToStorage();
-      });
-      
-      $('#multiple-choice-mode').on('click', function() {
-        appState.quizMode = 'multipleChoice';
-        updateQuizModeUI();
-        saveStateToStorage();
-      });
-      
-      // Event listener for select/deselect all
-      $('#select-all').on('click', function() {
-        $('.state-checkbox').prop('checked', true);
-        statesData.forEach(state => {
-          appState.enabledStates[state.id] = true;
-        });
-        updateMap();
-        updateCounters();
-        saveStateToStorage();
-        
-        if (appState.quizMode === 'multipleChoice') {
-          startMultipleChoiceQuiz();
-        }
-      });
-      
-      $('#deselect-all').on('click', function() {
-        $('.state-checkbox').prop('checked', false);
-        statesData.forEach(state => {
-          appState.enabledStates[state.id] = false;
-        });
-        updateMap();
-        updateCounters();
-        saveStateToStorage();
-        
-        if (appState.quizMode === 'multipleChoice') {
-          startMultipleChoiceQuiz();
-        }
-      });
-      
-      // Event listener for reset button
-      $('#reset-quiz').on('click', function() {
-        resetQuiz();
-      });
-      
-      // Event listener for collapsing states list
-      $('#collapse-toggle').on('click', function() {
-        $('#states-list').toggleClass('collapsed');
-        $('.collapse-button').toggleClass('rotate-180');
-      });
-      
-      // Settings panel
-      $('#settings-button').on('click', function() {
-        $('#settings-panel').toggle();
-      });
-      
-      // Theme options
-      $('.theme-option').on('click', function() {
-        const theme = $(this).data('theme');
-        setTheme(`theme-${theme}`);
-        $('#settings-panel').hide();
-      });
-      
-      // Close settings panel when clicking outside
-      $(document).on('click', function(event) {
-        if (!$(event.target).closest('#settings-panel').length && 
-            !$(event.target).closest('#settings-button').length) {
-          $('#settings-panel').hide();
-        }
-      });
-      
-      // Initialize based on current quiz mode
-      updateQuizModeUI();
-    });
-  </script>
 
-</body>
-</html>
+        // AI Chatbot
+        const chatResponses = [
+            "That's interesting! Tell me more.",
+            "I love talking about games! What's your favorite?",
+            "Did you know gaming can improve problem-solving skills?",
+            "I'm here to chat whenever you need a break from gaming!",
+            "What other games would you like to see added here?",
+            "Gaming is such a fun way to spend time! What do you think?",
+            "I'm learning new things every day from our conversations!",
+            "That's a great point! I hadn't thought of it that way.",
+            "Thanks for sharing that with me! What else is on your mind?",
+            "I find human perspectives fascinating! What's your take on that?",
+            "Awesome! I'm always excited to hear what players think!",
+            "Have you tried all the games here? Which one's your favorite so far?",
+            "I love how creative humans can be! Tell me about your gaming experiences.",
+            "That sounds really cool! Gaming brings people together, doesn't it?"
+        ];
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            
+            if (input.value.trim() === '') return;
+            
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.textContent = input.value;
+            messages.appendChild(userMessage);
+            
+            // Add bot response
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot-message';
+                botMessage.textContent = chatResponses[Math.floor(Math.random() * chatResponses.length)];
+                messages.appendChild(botMessage);
+                messages.scrollTop = messages.scrollHeight;
+            }, 1000);
+            
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        // Gun Spin Game
+        let gunSpinCount = 0;
+        const gunResults = ['💥 BANG!', '🎯 Hit!', '💨 Miss!', '🔥 Critical Hit!', '⚡ Power Shot!', '💀 Headshot!', '🌟 Lucky Shot!'];
+
+        function spinGun() {
+            const gun = document.getElementById('gunSpinner');
+            const result = document.getElementById('gunResult');
+            
+            gun.classList.add('spinning');
+            gunSpinCount++;
+            document.getElementById('gunSpins').textContent = gunSpinCount;
+            
+            setTimeout(() => {
+                gun.classList.remove('spinning');
+                const randomResult = gunResults[Math.floor(Math.random() * gunResults.length)];
+                result.textContent = randomResult;
+                result.style.fontSize = '1.5rem';
+                result.style.fontWeight = 'bold';
+                result.style.color = '#ff6b6b';
+            }, 2000);
+        }
+
+        function resetGunSpin() {
+            gunSpinCount = 0;
+            document.getElementById('gunSpins').textContent = gunSpinCount;
+            document.getElementById('gunResult').textContent = '';
+        }
+
+        // Snake Game
+        let snakeGame = {
+            canvas: null,
+            ctx: null,
+            snake: [{x: 10, y: 10}],
+            food: {x: 15, y: 15},
+            dx: 0,
+            dy: 0,
+            score: 0,
+            running: false
+        };
+
+        function startSnake() {
+            snakeGame.canvas = document.getElementById('snakeCanvas');
+            snakeGame.ctx = snakeGame.canvas.getContext('2d');
+            snakeGame.running = true;
+            snakeGame.snake = [{x: 10, y: 10}];
+            snakeGame.dx = 0;
+            snakeGame.dy = 0;
+            snakeGame.score = 0;
+            document.getElementById('snakeScore').textContent = snakeGame.score;
+            generateSnakeFood();
+            snakeGameLoop();
+        }
+
+        function resetSnake() {
+            snakeGame.running = false;
+            snakeGame.score = 0;
+            document.getElementById('snakeScore').textContent = snakeGame.score;
+            if (snakeGame.ctx) {
+                snakeGame.ctx.clearRect(0, 0, snakeGame.canvas.width, snakeGame.canvas.height);
+            }
+        }
+
+        function snakeGameLoop() {
+            if (!snakeGame.running) return;
+            
+            setTimeout(() => {
+                clearSnakeCanvas();
+                moveSnake();
+                drawSnake();
+                drawSnakeFood();
+                snakeGameLoop();
+            }, 150);
+        }
+
+        function clearSnakeCanvas() {
+            snakeGame.ctx.fillStyle = '#000';
+            snakeGame.ctx.fillRect(0, 0, snakeGame.canvas.width, snakeGame.canvas.height);
+        }
+
+        function moveSnake() {
+            const head = {x: snakeGame.snake[0].x + snakeGame.dx, y: snakeGame.snake[0].y + snakeGame.dy};
+            
+            // Check wall collision
+            if (head.x < 0 || head.x >= 30 || head.y < 0 || head.y >= 30) {
+                snakeGame.running = false;
+                alert('Game Over! Score: ' + snakeGame.score);
+                return;
+            }
+            
+            // Check self collision
+            for (let segment of snakeGame.snake) {
+                if (head.x === segment.x && head.y === segment.y) {
+                    snakeGame.running = false;
+                    alert('Game Over! Score: ' + snakeGame.score);
+                    return;
+                }
+            }
+            
+            snakeGame.snake.unshift(head);
+            
+            // Check food collision
+            if (head.x === snakeGame.food.x && head.y === snakeGame.food.y) {
+                snakeGame.score += 10;
+                document.getElementById('snakeScore').textContent = snakeGame.score;
+                generateSnakeFood();
+            } else {
+                snakeGame.snake.pop();
+            }
+        }
+
+        function drawSnake() {
+            snakeGame.ctx.fillStyle = '#4ecdc4';
+            snakeGame.snake.forEach(segment => {
+                snakeGame.ctx.fillRect(segment.x * 10, segment.y * 10, 10, 10);
+            });
+        }
+
+        function drawSnakeFood() {
+            snakeGame.ctx.fillStyle = '#ff6b6b';
+            snakeGame.ctx.fillRect(snakeGame.food.x * 10, snakeGame.food.y * 10, 10, 10);
+        }
+
+        function generateSnakeFood() {
+            snakeGame.food = {
+                x: Math.floor(Math.random() * 30),
+                y: Math.floor(Math.random() * 30)
+            };
+        }
+
+        // Snake controls
+        document.addEventListener('keydown', (e) => {
+            if (!snakeGame.running) return;
+            
+            switch(e.key) {
+                case 'ArrowUp': 
+                    if (snakeGame.dy !== 1) { snakeGame.dx = 0; snakeGame.dy = -1; }
+                    break;
+                case 'ArrowDown': 
+                    if (snakeGame.dy !== -1) { snakeGame.dx = 0; snakeGame.dy = 1; }
+                    break;
+                case 'ArrowLeft': 
+                    if (snakeGame.dx !== 1) { snakeGame.dx = -1; snakeGame.dy = 0; }
+                    break;
+                case 'ArrowRight': 
+                    if (snakeGame.dx !== -1) { snakeGame.dx = 1; snakeGame.dy = 0; }
+                    break;
+            }
+        });
+
+        // Flappy Bird Game
+        let flappyGame = {
+            canvas: null,
+            ctx: null,
+            bird: {x: 50, y: 120, dy: 0},
+            pipes: [],
+            score: 0,
+            running: false,
+            gravity: 0.5,
+            jump: -8
+        };
+
+        function startFlappy() {
+            flappyGame.canvas = document.getElementById('flappyCanvas');
+            flappyGame.ctx = flappyGame.canvas.getContext('2d');
+            flappyGame.running = true;
+            flappyGame.bird = {x: 50, y: 120, dy: 0};
+            flappyGame.pipes = [];
+            flappyGame.score = 0;
+            document.getElementById('flappyScore').textContent = flappyGame.score;
+            flappyGameLoop();
+        }
+
+        function resetFlappy() {
+            flappyGame.running = false;
+            flappyGame.score = 0;
+            document.getElementById('flappyScore').textContent = flappyGame.score;
+            if (flappyGame.ctx) {
+                flappyGame.ctx.clearRect(0, 0, flappyGame.canvas.width, flappyGame.canvas.height);
+            }
+        }
+
+        function flappyGameLoop() {
+            if (!flappyGame.running) return;
+            
+            // Clear canvas
+            flappyGame.ctx.clearRect(0, 0, flappyGame.canvas.width, flappyGame.canvas.height);
+            
+            // Update bird
+            flapp
